@@ -1,0 +1,40 @@
+Required libraries
+
+opencv-python
+numpy
+mediapipe
+scikit-learn
+
+This code is a Python script that uses OpenCV and a trained machine learning model to perform emotion detection based on facial landmarks. Here's a breakdown of what the code does:
+
+1. Imports:
+   - `pickle` is used to load the pre-trained emotion detection model.
+   - `cv2` (OpenCV) is used for video capture and image manipulation.
+   - `get_face_landmarks` is a custom function (presumably defined in a separate file, `utils.py`) that detects the landmarks of a face in the given frame.
+
+2. Emotions List:
+   - The script recognizes two emotions: `'SAD'` and `'SURPRISED'`. These are indexed from the model's predictions.
+
+3. Loading the Model:
+   - The model, saved as a pickle file (`./model`), is loaded into the variable `model`.
+
+4. Video Capture:
+   - The `cv2.VideoCapture(0)` initializes the webcam for real-time video capture.
+
+5. Main Loop:
+   - The script continuously captures frames from the webcam.
+   - For each frame, the `get_face_landmarks` function is called to detect the facial landmarks, which are passed to the `model.predict()` method.
+   - The model's prediction is an index, which is mapped to either `'SAD'` or `'SURPRISED'` (as defined in the `emotions` list).
+   - This emotion is then displayed on the frame using `cv2.putText`.
+
+6. Display:
+   - The frame with the emotion text is displayed in a window titled `'frame'`.
+   - The loop runs continuously, updating the frame every 25 milliseconds (`cv2.waitKey(25)`).
+
+7. Cleanup:
+   - When the loop ends, the script releases the webcam and closes the OpenCV windows.
+Things to Note:
+- The function `get_face_landmarks` is essential for detecting facial features. This should either be using a face landmark detection library (such as `dlib` or OpenCV's built-in methods) or a custom implementation.
+- The `model.predict()` function expects input data in a specific format, which should align with the output of `get_face_landmarks`.
+
+
